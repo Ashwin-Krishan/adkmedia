@@ -20,15 +20,24 @@ const containerVariants: Variants = {
   },
 };
 
-// Fade up variant for sections
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
+// ✅ Smooth fade+scale spring variant
+
+export const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.98 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    scale: 1,
+    transition: {
+      duration: 1.2,
+      ease: [0.25, 0.1, 0.25, 1], // smoother cubic-bezier ease
+    },
   },
 };
+
+
+
+
 
 export default function Home() {
   return (
@@ -36,19 +45,38 @@ export default function Home() {
       {/* Navbar */}
       <Navbar />
 
-      {/* Hero */}
-      <section className="flex flex-col items-center justify-center min-h-screen px-4 bg-[var(--background)] text-[var(--foreground)]">
-        <motion.div variants={fadeUp} initial="hidden" animate="show">
-          <Image
-            src="/logo.png"
-            alt="ADK Media Logo"
-            width={400}
-            height={400}
-            className="w-[40vw] md:w-[20vw] drop-shadow-2xl"
-            priority
-          />
-        </motion.div>
-      </section>
+{/* Hero */}
+<section className="relative flex flex-col items-center justify-center min-h-screen px-4 overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
+  {/* ✅ Animated gradient background */}
+  <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black animate-gradientBlur"></div>
+
+  {/* ✅ Content */}
+  <motion.div
+  variants={fadeUp}
+  initial="hidden"
+  animate="show"
+  className="relative z-10 flex flex-col items-center text-center"
+>
+  <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-4 text-white">
+    Bold Creative, Cinematic Storytelling.
+  </h1>
+  <p className="text-lg md:text-2xl max-w-3xl text-gray-200">
+    ADK Media transforms brands with stunning visuals & powerful narratives.
+  </p>
+</motion.div>
+
+  {/* ✅ Scroll arrow */}
+  <motion.div
+    animate={{ y: [0, 12, 0] }}
+    transition={{ repeat: Infinity, duration: 2 }}
+    className="absolute bottom-8 text-2xl text-white opacity-70"
+  >
+    ↓
+  </motion.div>
+</section>
+
+
+
 
       {/* About - darker */}
       <section
