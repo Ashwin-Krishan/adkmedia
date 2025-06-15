@@ -1,25 +1,26 @@
 "use client";
 
-import React from "react";
-
-// ✅ Removed unused Link
-
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 w-full flex justify-center py-6 z-50 text-white">
+    <nav className="fixed top-0 left-0 w-full flex justify-center py-6 z-50 bg-[var(--background)] bg-opacity-80 backdrop-blur-md text-[var(--foreground)]">
       <ul className="flex space-x-8">
         <li>
-          <a href="#work" className="hover:underline">
-            Work
-          </a>
-        </li>
-        <li>
-          <a href="#about" className="hover:underline">
+          <a href="#about" className="transition font-normal hover:font-bold">
             About
           </a>
         </li>
         <li>
-          <a href="#contact" className="hover:underline">
+          <a href="#work" className="transition font-normal hover:font-bold">
+            Work
+          </a>
+        </li>
+        <li>
+          <a href="#clients" className="transition font-normal hover:font-bold">
+            Clients
+          </a>
+        </li>
+        <li>
+          <a href="#contact" className="transition font-normal hover:font-bold">
             Contact
           </a>
         </li>

@@ -1,105 +1,78 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, Variants } from "framer-motion";
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
 
 export default function ContactForm() {
-  const [state, setState] = useState("idle");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [honeypot, setHoneypot] = useState(""); // 👈 anti-spam
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (honeypot) {
-      // bot filled hidden field — block it!
-      console.log("Spam detected");
-      return;
-    }
-
-    setState("submitting");
-
-    try {
-      const res = await fetch("https://formspree.io/f/mdkzzgew", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-        }),
-      });
-
-      if (res.ok) {
-        setState("success");
-        setName("");
-        setEmail("");
-        setMessage("");
-      } else {
-        setState("error");
-      }
-    } catch (error) {
-      console.error(error);
-      setState("error");
-    }
-  };
+  const [submitted, setSubmitted] = useState(false);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col space-y-4 text-left">
-      {/* honeypot field — hidden */}
-      <input
-        type="text"
-        value={honeypot}
-        onChange={(e) => setHoneypot(e.target.value)}
-        style={{ display: "none" }}
-        tabIndex={-1}
-        autoComplete="off"
-      />
+    <motion.form
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+      variants={fadeUp} // ✅ now TS knows it's the right type
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      className="flex flex-col gap-4 text-left"
+    >
+      <input type="text" name="_gotcha" className="hidden" />
 
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="p-3 rounded bg-neutral-800 text-white placeholder-gray-400"
-        required
-      />
+      <label className="block">
+        <span className="text-gray-800">Name</span>
+        <input
+          type="text"
+          name="name"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="mt-1 p-3 w-full border border-gray-300 rounded"
+        />
+      </label>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="p-3 rounded bg-neutral-800 text-white placeholder-gray-400"
-        required
-      />
+      <label className="block">
+        <span className="text-gray-800">Email</span>
+        <input
+          type="email"
+          name="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-1 p-3 w-full border border-gray-300 rounded"
+        />
+      </label>
 
-      <textarea
-        placeholder="Message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="p-3 rounded bg-neutral-800 text-white placeholder-gray-400"
-        rows={5}
-        required
-      />
+      <label className="block">
+        <span className="text-gray-800">Message</span>
+        <textarea
+          name="message"
+          required
+          rows={5}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="mt-1 p-3 w-full border border-gray-300 rounded"
+        />
+      </label>
 
       <button
         type="submit"
-        className="bg-white text-black font-bold py-3 px-6 rounded hover:bg-gray-200 transition"
-        disabled={state === "submitting"}
+        className="bg-black text-white px-6 py-3 rounded font-bold hover:bg-gray-900 transition"
+        onClick={() => setSubmitted(true)}
       >
-        {state === "submitting" ? "Sending..." : "Send Message"}
+        {submitted ? "Sent!" : "Send Message"}
       </button>
-
-      {state === "success" && (
-        <p className="text-green-400">Thank you! We’ll be in touch soon.</p>
-      )}
-      {state === "error" && (
-        <p className="text-red-400">Something went wrong. Please try again.</p>
-      )}
-    </form>
+    </motion.form>
   );
 }

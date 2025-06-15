@@ -4,16 +4,29 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
+import Clients from "@/components/Clients";
+import Testimonials from "@/components/Testimonials";
 
-const containerVariants = {
+// Animation container for staggered child animations
+const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
       staggerChildren: 0.2,
     },
+  },
+};
+
+// Fade up variant for sections
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -24,12 +37,8 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="flex flex-col items-center justify-center min-h-screen bg-black text-white px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-        >
+      <section className="flex flex-col items-center justify-center min-h-screen px-4 bg-[var(--background)] text-[var(--foreground)]">
+        <motion.div variants={fadeUp} initial="hidden" animate="show">
           <Image
             src="/logo.png"
             alt="ADK Media Logo"
@@ -41,18 +50,54 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* About - darker */}
+      <section
+        id="about"
+        className="w-full min-h-screen flex items-center justify-center bg-gray-50 text-[var(--foreground)] px-6 py-24"
+      >
+        <motion.div
+          className="max-w-3xl text-center"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <h2 className="text-4xl md:text-6xl font-bold mb-4">About Us</h2>
+          <div className="h-1 w-16 bg-[var(--foreground)] mx-auto mb-8"></div>
+          <p className="text-lg md:text-xl leading-relaxed text-gray-800">
+            ADK Media is a creative studio specializing in impactful media
+            production, branding, and storytelling. We collaborate with
+            ambitious brands to craft visually stunning content that leaves a
+            lasting impression. Our team merges strategy, design, and production
+            to bring bold ideas to life.
+          </p>
+        </motion.div>
+      </section>
+
       {/* Our Work */}
       <section
         id="work"
-        className="w-full min-h-screen px-6 py-24 bg-neutral-900 flex flex-col items-center"
+        className="w-full min-h-screen px-6 py-24 bg-[var(--background)] text-[var(--foreground)] flex flex-col items-center"
       >
-        <h2 className="text-4xl md:text-6xl font-bold mb-4 text-center text-white">
+        <motion.h2
+          className="text-4xl md:text-6xl font-bold mb-4 text-center"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           Our Work
-        </h2>
-        <p className="text-center max-w-2xl mb-12 text-gray-300">
+        </motion.h2>
+        <motion.p
+          className="text-center max-w-2xl mb-12 text-gray-700"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           A selection of projects showcasing our passion for storytelling,
           design, and creative strategy.
-        </p>
+        </motion.p>
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl"
@@ -70,38 +115,34 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* About */}
-      <section
-        id="about"
-        className="w-full min-h-screen flex items-center justify-center bg-black text-white px-6 py-24"
-      >
-        <div className="max-w-3xl text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-4">About Us</h2>
-          <div className="h-1 w-16 bg-white mx-auto mb-8"></div>
-          <p className="text-lg md:text-xl leading-relaxed text-gray-300">
-            ADK Media is a creative studio specializing in impactful media
-            production, branding, and storytelling. We collaborate with
-            ambitious brands to craft visually stunning content that leaves a
-            lasting impression. Our team merges strategy, design, and production
-            to bring bold ideas to life.
-          </p>
-        </div>
+      {/* Clients - darker */}
+      <section className="w-full py-24 bg-gray-50 text-[var(--foreground)] flex flex-col items-center" id="clients">
+        <Clients />
       </section>
 
-      {/* Contact */}
+      {/* Testimonials - default white */}
+      <Testimonials />
+
+      {/* Contact - darker */}
       <section
         id="contact"
-        className="w-full min-h-screen flex flex-col items-center justify-center bg-neutral-900 text-white px-6 py-24"
+        className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-50 text-[var(--foreground)] px-6 py-24"
       >
-        <div className="text-center max-w-xl">
+        <motion.div
+          className="text-center max-w-xl"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           <h2 className="text-4xl md:text-6xl font-bold mb-4">Contact</h2>
-          <div className="h-1 w-16 bg-white mx-auto mb-8"></div>
-          <p className="text-lg md:text-xl mb-6 text-gray-300">
-            Ready to bring your vision to life? Let&apos;s connect and make something
-            amazing together.
+          <div className="h-1 w-16 bg-[var(--foreground)] mx-auto mb-8"></div>
+          <p className="text-lg md:text-xl mb-6 text-gray-800">
+            Ready to bring your vision to life? Let&apos;s connect and make
+            something amazing together.
           </p>
           <ContactForm />
-        </div>
+        </motion.div>
       </section>
 
       {/* Footer */}

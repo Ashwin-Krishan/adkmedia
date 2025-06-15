@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff;  /* White background */
+  --foreground: #171717;  /* Dark text */
 }
 
 @theme inline {
@@ -12,10 +12,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* ✅ REMOVE dark mode override — force light always */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
@@ -28,4 +29,3 @@ body {
 html {
   scroll-behavior: smooth;
 }
-

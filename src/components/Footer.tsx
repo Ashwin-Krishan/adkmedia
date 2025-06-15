@@ -1,35 +1,24 @@
 "use client";
 
-import { Instagram } from "lucide-react";
+import React from "react";
+import { FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-black text-white py-8 flex flex-col md:flex-row items-center justify-between px-8">
-      <p className="text-sm">
-        © {new Date().getFullYear()} ADK Media. All rights reserved.
-      </p>
-
-      <div className="flex gap-4 mt-4 md:mt-0">
-        <a href="#work" className="hover:underline">
-          Work
-        </a>
-        <a href="#about" className="hover:underline">
-          About
-        </a>
-        <a href="#contact" className="hover:underline">
-          Contact
-        </a>
-
-        {/* ✅ Only Instagram icon */}
+    <footer className="py-6 text-center bg-[var(--background)] text-[var(--foreground)] border-t border-gray-300">
+      <div className="flex justify-center space-x-4 mb-2">
         <a
-          href="https://www.instagram.com/adkmedia_/"
+          href="https://instagram.com/adkmedia"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-gray-400"
+          className="hover:text-gray-500 transition"
         >
-          <Instagram size={20} />
+          <FaInstagram size={24} />
         </a>
       </div>
+      <p className="text-sm text-gray-600">
+        &copy; {new Date().getFullYear()} ADK Media. All rights reserved.
+      </p>
     </footer>
   );
 }
