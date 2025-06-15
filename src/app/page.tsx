@@ -6,6 +6,7 @@ import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import ContactForm from "@/components/ContactForm";
 
 const containerVariants = {
   hidden: {},
@@ -99,12 +100,7 @@ export default function Home() {
             Ready to bring your vision to life? Let&apos;s connect and make something
             amazing together.
           </p>
-          <a
-            href="mailto:hello@adkmedia.ca"
-            className="inline-block bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
-          >
-            hello@adkmedia.ca
-          </a>
+          <ContactForm />
         </div>
       </section>
 
