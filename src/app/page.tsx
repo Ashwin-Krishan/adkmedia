@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 import { motion, Variants } from "framer-motion";
-import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
 import Clients from "@/components/Clients";
 import Testimonials from "@/components/Testimonials";
@@ -22,7 +21,7 @@ const containerVariants: Variants = {
 
 // ✅ Smooth fade+scale spring variant
 
-export const fadeUp: Variants = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40, scale: 0.98 },
   show: {
     opacity: 1,
