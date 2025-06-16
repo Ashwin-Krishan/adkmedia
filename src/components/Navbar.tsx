@@ -24,10 +24,10 @@ export default function Navbar() {
       }`}
     >
       <nav className="container mx-auto flex items-center justify-center py-4 space-x-8 font-medium">
-        <Link href="#about">About</Link>
-        <Link href="#work">Work</Link>
-        <Link href="#clients">Clients</Link>
-        <Link href="#contact">Contact</Link>
+        <Link href="#about" className="hover:font-bold transition-all">About</Link>
+        <Link href="#work" className="hover:font-bold transition-all">Work</Link>
+        <Link href="#clients" className="hover:font-bold transition-all">Clients</Link>
+        <Link href="#contact" className="hover:font-bold transition-all">Contact</Link>
       </nav>
     </header>
   );
